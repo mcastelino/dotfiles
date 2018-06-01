@@ -1,86 +1,41 @@
-execute pathogen#infect()
-syntax on
-filetype plugin indent on
-setlocal cinoptions=:0
-setlocal spell spelllang=en_us
-set nu
+" Specify a directory for plugins
+" - For Neovim: ~/.local/share/nvim/plugged
+" - Avoid using standard Vim directory names like 'plugin'
+call plug#begin('~/.vim/plugged')
 
-"Theme
-set background=dark
-colorscheme solarized
+" Make sure you use single quotes
 
-"Nerdtree
-set encoding=utf-8
-autocmd vimenter * NERDTree
-let g:NERDTreeDirArrows=0
+" Shorthand notation; fetches https://github.com/junegunn/vim-easy-align
+Plug 'junegunn/vim-easy-align'
 
-"Tagbar to see current file tags
+" Any valid git URL is allowed
+Plug 'https://github.com/junegunn/vim-github-dashboard.git'
+
+" Multiple Plug commands can be written in a single line using | separators
+Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
+
+" On-demand loading
+Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
+Plug 'tpope/vim-fireplace', { 'for': 'clojure' }
+
+" Using a non-master branch
+Plug 'rdnetto/YCM-Generator', { 'branch': 'stable' }
+
+" Using a tagged release; wildcard allowed (requires git 1.9.2 or above)
+Plug 'fatih/vim-go', { 'tag': '*' }
+
+" Plugin options
+Plug 'nsf/gocode', { 'tag': 'v.20150303', 'rtp': 'vim' }
+
+" Plugin outside ~/.vim/plugged with post-update hook
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+
+Plug 'majutsushi/tagbar'
+
+Plug 'kris2k/cscope.vim'
+
+" Initialize plugin system
+call plug#end()
+
+map <C-n> :NERDTreeToggle<CR>
 nmap <F8> :TagbarToggle<CR>
-
-"Hit F5 before pasting to prevent the auto indent"
-set pastetoggle=<F5>
-
-"Gundo
-nnoremap <F5> :GundoToggle<CR>
-
-
-"Syntastic
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
-
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
-let g:syntastic_c_no_include_search = 1
-let g:syntastic_c_remove_include_errors = 1
-let g:syntastic_enable_signs = 1
-let g:syntastic_c_no_include_search = 0
-
-let g:syntastic_auto_jump = 1
-let g:syntastic_enable_balloons = 1
-
-"Use the right checker here
-let g:syntastic_c_checkers = ['make']
-
-"YCM
-let g:ycm_global_ycm_extra_conf = '~/.ycm_extra_conf.py'"
-let g:ycm_register_as_syntastic_checker = 1 "default 1
-let g:Show_diagnostics_ui = 1 "default 1
-
-"will put icons in Vim's gutter on lines that have a diagnostic set.
-"Turning this off will also turn off the YcmErrorLine and YcmWarningLine
-"highlighting
-let g:ycm_enable_diagnostic_signs = 1
-let g:ycm_enable_diagnostic_highlighting = 0
-let g:ycm_always_populate_location_list = 1 "default 0
-let g:ycm_open_loclist_on_ycm_diags = 1 "default 1
-
-let g:ycm_complete_in_strings = 1 "default 1
-let g:ycm_collect_identifiers_from_tags_files = 0 "default 0
-let g:ycm_path_to_python_interpreter = '' "default ''
-
-let g:ycm_server_use_vim_stdout = 0 "default 0 (logging to console)
-let g:ycm_server_log_level = 'info' "default info
-
-let g:ycm_confirm_extra_conf = 0
-
-"nerdtree git plugin
-let g:NERDTreeIndicatorMapCustom = {
-    \ "Modified"  : "✹",
-    \ "Staged"    : "✚",
-    \ "Untracked" : "✭",
-    \ "Renamed"   : "➜",
-    \ "Unmerged"  : "═",
-    \ "Deleted"   : "✖",
-    \ "Dirty"     : "✗",
-    \ "Clean"     : "✔︎",
-    \ "Unknown"   : "?"
-    \ }
-    
-"Always try to enable
-au VimEnter * RainbowParenthesesToggle
-au Syntax * RainbowParenthesesLoadRound
-au Syntax * RainbowParenthesesLoadSquare
-au Syntax * RainbowParenthesesLoadBraces
