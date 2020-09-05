@@ -1,41 +1,41 @@
-" Specify a directory for plugins
-" - For Neovim: ~/.local/share/nvim/plugged
-" - Avoid using standard Vim directory names like 'plugin'
+if empty(glob('~/.vim/autoload/plug.vim'))
+  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
+
 call plug#begin('~/.vim/plugged')
-
-" Make sure you use single quotes
-
-" Shorthand notation; fetches https://github.com/junegunn/vim-easy-align
-Plug 'junegunn/vim-easy-align'
-
-" Any valid git URL is allowed
-Plug 'https://github.com/junegunn/vim-github-dashboard.git'
-
-" Multiple Plug commands can be written in a single line using | separators
-Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
-
-" On-demand loading
-Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
-Plug 'tpope/vim-fireplace', { 'for': 'clojure' }
-
-" Using a non-master branch
-Plug 'rdnetto/YCM-Generator', { 'branch': 'stable' }
-
-" Using a tagged release; wildcard allowed (requires git 1.9.2 or above)
-Plug 'fatih/vim-go', { 'tag': '*' }
-
-" Plugin options
-Plug 'nsf/gocode', { 'tag': 'v.20150303', 'rtp': 'vim' }
-
-" Plugin outside ~/.vim/plugged with post-update hook
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-
-Plug 'majutsushi/tagbar'
-
-Plug 'kris2k/cscope.vim'
-
-" Initialize plugin system
+Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+Plug 'flazz/vim-colorschemes'
+Plug 'Valloric/YouCompleteMe'
+Plug 'nathanaelkane/vim-indent-guides'
+Plug 'tpope/vim-fugitive'
 call plug#end()
 
-map <C-n> :NERDTreeToggle<CR>
-nmap <F8> :TagbarToggle<CR>
+colorscheme tir_black
+
+set incsearch
+set showmatch
+set hlsearch
+
+set wildignore=*.o,*.obj,*.bak,*.exe
+
+syntax on
+
+set encoding=utf-8
+set expandtab
+set tabstop=2
+set sw=2
+set bs=indent,eol,start
+autocmd FileType text setlocal expandtab
+let g:indent_guides_enable_on_vim_startup = 1
+
+set showcmd
+set ruler
+set spell
+set breakindent
+set linebreak
+set wrap
+
+set wildmenu
+" set wildmode=true
